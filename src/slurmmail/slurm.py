@@ -162,9 +162,17 @@ class Job:
 
     @property
     def end(self) -> str:
-        if self.end_ts is None:
+        try:
+            return self.end_dt.strftime(self.__datetime_format)
+        except Exception:
             return "N/A"
-        return datetime.fromtimestamp(self.end_ts).strftime(self.__datetime_format)
+
+    @property
+    def end_dt(self) -> Optional[datetime]:
+        try:
+            return datetime.fromtimestamp(self.end_ts)
+        except Exception:
+            return None
 
     @property
     def end_ts(self) -> Optional[int]:
@@ -199,9 +207,17 @@ class Job:
 
     @property
     def start(self) -> str:
-        if self.start_ts is None:
+        try:
+            return self.start_dt.strftime(self.__datetime_format)
+        except Exception:
             return "N/A"
-        return datetime.fromtimestamp(self.start_ts).strftime(self.__datetime_format)
+
+    @property
+    def start_dt(self) -> Optional[datetime]:
+        try:
+            return datetime.fromtimestamp(self.start_ts)
+        except Exception:
+            return None
 
     @property
     def start_ts(self) -> Optional[int]:
