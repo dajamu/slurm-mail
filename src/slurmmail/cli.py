@@ -459,7 +459,7 @@ def __process_spool_file(
                             continue
                         job.add_tres(key, value)
 
-                # Get jon info from scrontrol (if it exists)
+                # Get job info from scrontrol (if it exists)
                 scontrol_dict = run_scontrol(job_id, options.scontrol_exe)
 
                 if scontrol_dict is not None:
