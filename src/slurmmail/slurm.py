@@ -41,15 +41,12 @@ def check_job_output_file_path(path: str) -> bool:
     Check if the given path contains any Slurm filename
     characters that will not be expanded by scontrol.
     """
-    supported_values = ["%A", "%a", "%j", "%u", "%x"]
-    path_re = re.compile(r"(?P<sub>%[\w])")
+    supported_values = {"%A", "%a", "%j", "%u", "%x"}
+    path_re = re.compile(r"%\w")
     matches = path_re.findall(path)
-    if matches is None or len(matches) == 0:
-        return True
-    for match in matches:
-        if match not in supported_values:
-            return False
-    return True
+
+    # Returns True if the list is empty, or all items are supported
+    return all(m in supported_values for m in matches)
 
 
 class JobException(Exception):
